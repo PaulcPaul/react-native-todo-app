@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import ExampleReducer from './ExampleReducer.js'
+import TodoReducer from './TodoReducer.js'
 
 export default combineReducers({
-  ExampleReducer: ExampleReducer,
+  TodoReducer: TodoReducer,
 })
