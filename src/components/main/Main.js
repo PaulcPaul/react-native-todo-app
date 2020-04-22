@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addTodo } from '../../actions/TodoAction';
-import { Container, TodoInput, Send, ButtonText, TodoContainer, TodoText, Title } from './styles';
+import { Todos } from '../todos/Todos';
+import { Container, TodoInput, Send, ButtonText, Title } from './styles';
 
 export function Main({ navigation }) {
   const todos = useSelector(state => state.TodoReducer.todos);
@@ -17,30 +18,18 @@ export function Main({ navigation }) {
     dispatch(addTodo(newTodos));
   }
 
-  const renderToDo = (todo, index) => {
-    return(
-      <TodoContainer key={index} elevation={5}>
-        <TodoText>
-          {todo}
-        </TodoText>
-      </TodoContainer>
-    );
-  }
-
   return (
     <Container>
-      <TodoContainer elevation={5}>
-        <TodoInput onChangeText={(text) => setTodo(text)} />
-        <Send>
-          <ButtonText onPress={sendNewTodo}>Send</ButtonText>
-        </Send>
-      </TodoContainer>
+      <TodoInput onChangeText={(text) => setTodo(text)} />
+      <Send>
+        <ButtonText onPress={sendNewTodo}>Send</ButtonText>
+      </Send>
 
       <Title>My Todos</Title>
 
       <FlatList 
         data={todos}
-        renderItem={({item, index}) => renderToDo(item, index)}
+        renderItem={({item, index}) => <Todos todo={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </Container>
